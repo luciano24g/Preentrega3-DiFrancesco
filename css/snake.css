@@ -1,0 +1,11 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+#areaJuego{
+    border: 1px solid black;
+    background-color: #f4f4f4;
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>memory test</title>
+    <style>
+        #contenedor-juego {
+        display: grid;
+        grid-template-columns: repeat(4, 100px); /* Puedes ajustar el número de columnas aquí */
+         gap: 10px;
+        }
+        .carta {
+        width: 100px;
+        height: 100px;
+        background-color: #eaeaea;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="contenedor-juego">
+        <!-- Aquí generaremos el tablero dinámicamente con JavaScript -->
+      </div>
+      <button id="boton-iniciar">Iniciar Juego</button>
+      <button id="boton-reiniciar">Reiniciar Juego</button>
+      
+      
+      
+    <script src="../js/memory_test.js"></script>
+</body>
+</html>
