@@ -1,0 +1,63 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: #282c34; /* Fondo oscuro para darle un toque de juego */
+    color: #ffffff;
+    height: 100%;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 20px;
+}
+
+.card {
+    width: 200px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.1); /* Fondo semi-transparente */
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s, box-shadow 0.3s; /* Efecto suave al hacer hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Para que las imágenes y contenidos no sobresalgan de la tarjeta */
+}
+
+.card a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 20px;
+    text-align: center;
+}
+
+.card:hover {
+    transform: scale(1.05); /* Efecto de zoom al hacer hover */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al hacer hover */
+}
+
+/* Puedes agregar imágenes de fondo a las tarjetas si lo deseas */
+.card1 {
+    background-image: url('path_to_your_image_for_game1.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.card2 {
+    background-image: url('path_to_your_image_for_game2.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.card3 {
+    background-image: url('path_to_your_image_for_game3.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* ... y así sucesivamente para card4, card5, etc. */
