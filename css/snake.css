@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@300&display=swap');
 body {
     display: flex;
     justify-content: center;
+    background-color: black;
 }
 
 
@@ -8,4 +10,9 @@ body {
 #areaJuego{
     border: 1px solid black;
     background-color: #f4f4f4;
+}
+#puntos {
+    font-family: 'Handjet', cursive;
+    color: yellow;
+    font-size: 50px;
 }
