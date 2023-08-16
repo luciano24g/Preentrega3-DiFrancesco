@@ -1,0 +1,24 @@
+
+    body{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-image: url(../img/nick-design-X2Dmb0Y7HVg-unsplash.jpg);
+    }
+
+    #contenedor-juego {
+    display: grid;
+    grid-template-columns: repeat(4, 100px); /* Puedes ajustar el número de columnas aquí */
+     gap: 10px;
+    }
+    .carta {
+    width: 100px;
+    height: 100px;
+    background-color: #eaeaea;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+    }
