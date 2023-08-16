@@ -1,0 +1,7 @@
+{
+    "canvasWidth": 400,
+    "canvasHeight": 400,
+    "backgroundColor": "#e6e6e6",
+    "snakeColor": "green",
+    "snakeSpeed": 100
+}

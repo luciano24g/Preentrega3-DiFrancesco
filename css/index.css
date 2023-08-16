@@ -43,19 +43,19 @@ main {
 
 /* Puedes agregar imágenes de fondo a las tarjetas si lo deseas */
 .card1 {
-    background-image: url('path_to_your_image_for_game1.jpg');
+    background-image: url('');
     background-size: cover;
     background-position: center;
 }
 
 .card2 {
-    background-image: url('path_to_your_image_for_game2.jpg');
+    background-image: url('');
     background-size: cover;
     background-position: center;
 }
 
 .card3 {
-    background-image: url('path_to_your_image_for_game3.jpg');
+    background-image: url('');
     background-size: cover;
     background-position: center;
 }
