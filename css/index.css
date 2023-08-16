@@ -1,8 +1,8 @@
-body, html {
+body {
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
-    background: #282c34; /* Fondo oscuro para darle un toque de juego */
+    background-image: url(../img/nick-design-X2Dmb0Y7HVg-unsplash.jpg);
     color: #ffffff;
     height: 100%;
 }
@@ -19,7 +19,7 @@ main {
 .card {
     width: 200px;
     height: 300px;
-    background: rgba(255, 255, 255, 0.1); /* Fondo semi-transparente */
+    background: rgba(64, 52, 52, 0.1); /* Fondo semi-transparente */
     border-radius: 10px;
     display: flex;
     justify-content: center;
