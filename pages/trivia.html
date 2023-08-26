@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/trivia.css">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz de Pokémon</h1>
+        
+        <select id="generacion">
+            <option value="1">Generación 1 (1-151)</option>
+            <option value="2">Generación 2 (152-251)</option>
+            <option value="3">Generación 3 (252-386)</option>
+        </select>
+
+        <div id="pokemonContainer">
+            <img id="pokemonImage" src="" alt="Imagen de Pokémon">
+        </div>
+        
+        <div class="inputContainer">
+            <input type="text" id="respuesta" placeholder="Nombre del Pokémon">
+            <button id="btnResponder">Responder</button>
+            <button id="btnPista">Pista</button>
+        </div>
+        
+        <div id="feedback"></div>
+        
+        <div class="scoreContainer">
+            <p>Puntuación: <span id="puntuacion">0</span></p>
+        </div>
+        
+        <button id="btnSiguiente">Siguiente Pokémon</button>
+        <button id="btnIniciarRonda">Iniciar Ronda</button>
+    </div>
+    <script src="../js/trivia.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</body>
+</html>

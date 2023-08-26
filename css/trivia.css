@@ -1,0 +1,117 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url(../img/wp7287549.jpg.crdownload);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+   
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+    align-items: center;
+}
+ #generacion {
+     height:30px ;
+     font-size: 20px;
+     box-shadow: 0px 10px 14px -7px #276873;
+     background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+     background-color:#599bb3;
+     border-radius:8px;
+     color:#ffffff;
+     font-family:Arial;
+     text-shadow:0px 1px 0px #3d768a;
+     cursor: pointer;
+
+ }
+
+#pokemonImage{
+    width: 300px;
+    image-rendering: pixelated;
+}
+
+#respuesta {
+    box-shadow: 0px 10px 14px -7px #276873;
+	background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+	background-color:#599bb3;
+	border-radius:8px;
+	display:inline-block;
+	
+	color:#ffffff;
+	font-family:Arial;
+	font-size:20px;
+	font-weight:bold;
+	padding:13px 32px;
+
+	text-shadow:0px 1px 0px #3d768a;
+}
+
+button {
+    box-shadow: 0px 10px 14px -7px #276873;
+	background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+	background-color:#599bb3;
+	border-radius:8px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:20px;
+	font-weight:bold;
+	padding:13px 32px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #3d768a;
+}
+button:hover {
+	background:linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
+	background-color:#408c99;
+}
+button:active {
+	position:relative;
+	top:1px;
+}
+
+
+.modal {
+    display: none; /* Por defecto, el modal está oculto */
+    position: fixed; /* Posición fija en la ventana */
+    top: 0;
+    left: 0;
+    width: 100%; /* Ocupa todo el ancho de la ventana */
+    height: 100%; /* Ocupa todo el alto de la ventana */
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo negro con opacidad */
+    z-index: 1; /* Asegura que el modal esté por encima de otros elementos */
+}
+        
+.modal-content {
+    position: absolute;
+    top: 50%; /* Centrar verticalmente */
+    left: 50%; /* Centrar horizontalmente */
+    transform: translate(-50%, -50%); /* Ajuste para centrar perfectamente */
+    padding: 20px;
+    background-color: #fff; /* Fondo blanco para el contenido */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    border-radius: 8px; /* Bordes redondeados */
+    width: 80%; /* Ocupa el 80% del ancho de la ventana */
+    max-width: 500px; /* Ancho máximo */
+}
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #aaa;
+    transition: color 0.3s;
+}
+
+.close:hover {
+    color: #000;
+}
