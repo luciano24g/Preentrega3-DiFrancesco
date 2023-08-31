@@ -46,9 +46,11 @@ let pistasUsadas = 0;  // Nuevo: contador de pistas usadas
             });
     
         contadorRonda++;
-        if (contadorRonda >= 10 && rondaIniciada) {
+        
+        if (contadorRonda >= 10) {
             rondaIniciada = false;  // Finalizar la ronda
             mostrarModalResultado();
+            return;  // Salir de la función para no obtener un nuevo Pokémon
         }
     }
     

@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Handjet:wght@300&display=swap');
 body {
     display: flex;
-
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     background-color: black;
 }
@@ -28,7 +29,7 @@ body {
 #botonIniciar{
     width: 120px;
     height: 60px;
-    margin-top: 10rem;
+    margin-top: 5rem;
     margin-left: 40px;
     box-shadow: 0px 1px 0px 0px #fff6af;
 	background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);

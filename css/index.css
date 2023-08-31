@@ -19,7 +19,7 @@ main {
 .card {
     width: 200px;
     height: 300px;
-    background: rgba(64, 52, 52, 0.1); /* Fondo semi-transparente */
+    background: rgba(101, 51, 104, 0.598); /* Fondo semi-transparente */
     border-radius: 10px;
     display: flex;
     justify-content: center;
@@ -41,23 +41,3 @@ main {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al hacer hover */
 }
 
-/* Puedes agregar imágenes de fondo a las tarjetas si lo deseas */
-.card1 {
-    background-image: url('');
-    background-size: cover;
-    background-position: center;
-}
-
-.card2 {
-    background-image: url('');
-    background-size: cover;
-    background-position: center;
-}
-
-.card3 {
-    background-image: url('');
-    background-size: cover;
-    background-position: center;
-}
-
-/* ... y así sucesivamente para card4, card5, etc. */
