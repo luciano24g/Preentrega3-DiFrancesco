@@ -7,10 +7,14 @@ let puntaje = 0;
 let vidaAvion = 100;
 let oleada = 0;
 
+let intervaloActualizacion;
+let intervaloDibujo;
+
 // Variables para el avión del jugador
 let avionX = canvas.width / 2;
 let avionY = canvas.height - 30;
 const avionVelocidad = 5;
+
 
 // Variables para los disparos del jugador
 const disparos = [];
@@ -31,10 +35,8 @@ const tiposEnemigos = [
     { color: 'yellow', vida: 10, disparoTipo: 'cono', daño: 5 }
 ];
 
-// Agregar un contador de retraso para los disparos de los enemigos
-
 let contadorDisparoEnemigo = 0;
-
+const LIMITE_DISPARO_ENEMIGO = 60; // Ajusta este valor según la frecuencia deseada
 // Variables para los power-ups
 const powerUps = [];
 const powerUpRadio = 10;
@@ -52,10 +54,12 @@ document.addEventListener('keydown', function(event) {
 document.addEventListener('keyup', function(event) {
     teclasPresionadas[event.keyCode] = false;
 });
+
 function inicializarHUD() {
     actualizarVida();
     actualizarPuntaje();
 }
+
 
 function moverAvion() {
     if (teclasPresionadas[37] && avionX > 0) { // Izquierda
@@ -80,38 +84,28 @@ function moverAvion() {
 }
 
 function generarEnemigos() {
-    if (oleada < 3) {
-        if (Math.random() < 0.025) {
-            let tipo = tiposEnemigos[Math.floor(Math.random() * tiposEnemigos.length)];
-            let enemigo = { x: Math.random() * canvas.width, y: 0, tipo: tipo, vida: tipo.vida };
-            enemigos.push(enemigo);
-        }
-    } else {
-        // Generar aviones finales (2 aviones más fuertes)
-        if (enemigos.length === 0) {
-            enemigos.push({ x: canvas.width * 0.25, y: 0, tipo: { color: 'purple', vida: 200, disparoProbabilidad: 0.05, daño: 40 }, vida: 200 });
-            enemigos.push({ x: canvas.width * 0.75, y: 0, tipo: { color: 'purple', vida: 200, disparoProbabilidad: 0.05, daño: 40 }, vida: 200 });
-        }
+    if (Math.random() < 0.02 && enemigos.length < 2) {  // Solo genera nuevos enemigos si hay menos de 2 enemigos en pantalla
+        let tipo = tiposEnemigos[Math.floor(Math.random() * tiposEnemigos.length)];
+        let enemigo = { x: Math.random() * canvas.width, y: 0, tipo: tipo, vida: tipo.vida };
+        enemigos.push(enemigo);
     }
 }
 
 function disparoEnemigo(enemigo) {
-    if (Math.random() < 0.01) {  // Reducimos la probabilidad al 2%
-        switch (enemigo.tipo.disparoTipo) {
-            case 'normal':
-                disparosEnemigos.push({ x: enemigo.x, y: enemigo.y + 15, daño: 10, radio: 3 });  // Aumentamos la posición en y
-                break;
-            case 'fuerte':
-                disparosEnemigos.push({ x: enemigo.x, y: enemigo.y + 15, daño: 20, radio: 5 });
-                break;
-                case 'cono':
-                disparosEnemigos.push({ x: enemigo.x, y: enemigo.y + 15, daño: 10, radio: 3 }); // Centro
-                disparosEnemigos.push({ x: enemigo.x - 15, y: enemigo.y + 25, daño: 10, radio: 3 }); // Diagonal izquierda
-                disparosEnemigos.push({ x: enemigo.x + 15, y: enemigo.y + 25, daño: 10, radio: 3 }); // Diagonal derecha
-                disparosEnemigos.push({ x: enemigo.x - 30, y: enemigo.y + 35, daño: 10, radio: 3 }); // Diagonal izquierda más alejada
-                disparosEnemigos.push({ x: enemigo.x + 30, y: enemigo.y + 35, daño: 10, radio: 3 }); // Diagonal derecha más alejada
-    break;
-        }
+    switch (enemigo.tipo.disparoTipo) {
+        case 'normal':
+            disparosEnemigos.push({ x: enemigo.x, y: enemigo.y + 15, daño: 10, radio: 3 });
+            break;
+        case 'fuerte':
+            disparosEnemigos.push({ x: enemigo.x, y: enemigo.y + 15, daño: 15, radio: 5 });
+            break;
+        case 'cono':
+            disparosEnemigos.push({ x: enemigo.x, y: enemigo.y + 15, daño: 10, radio: 3 });
+            disparosEnemigos.push({ x: enemigo.x - 15, y: enemigo.y + 25, daño: 10, radio: 3 });
+            disparosEnemigos.push({ x: enemigo.x + 15, y: enemigo.y + 25, daño: 10, radio: 3 });
+            disparosEnemigos.push({ x: enemigo.x - 30, y: enemigo.y + 35, daño: 10, radio: 3 });
+            disparosEnemigos.push({ x: enemigo.x + 30, y: enemigo.y + 35, daño: 10, radio: 3 });
+            break;
     }
 }
 
@@ -129,9 +123,15 @@ function colisionaConAvion(disparoEnemigo) {
     return distancia < disparoEnemigoRadio + 15;
 }
 
-function actualizarVida() {
-    let vidaBarra = document.getElementById('vidaBarra');
-    vidaBarra.style.width = (vidaAvion / 100) * 200 + 'px';
+function actualizarBarraVida() {
+    const vidaBarra = document.getElementById('vidaBarra');
+    const porcentajeVida = (vidaAvion / 100) * 100;
+    vidaBarra.style.width = `${porcentajeVida}%`;
+    if (porcentajeVida <= 30) {
+        vidaBarra.style.backgroundColor = '#FF0000';
+    } else {
+        vidaBarra.style.backgroundColor = '#00FF00';
+    }
 }
 
 function generarOleadaEnemigos() {
@@ -147,7 +147,7 @@ function actualizarPuntaje() {
     elementoPuntaje.textContent = 'Puntaje: ' + puntaje;
 }
 
-let intervaloActualizacion, intervaloDibujo;
+
 
 function reiniciarIntervalos() {
     clearInterval(intervaloActualizacion);
@@ -161,6 +161,7 @@ function actualizar() {
 
     moverAvion();
     generarEnemigos();
+    generarPowerUps();
 
     // Actualizar disparos del jugador
     for (let i = 0; i < disparos.length; i++) {
@@ -170,71 +171,130 @@ function actualizar() {
             i--;
         }
     }
-     // Actualizar disparos de los enemigos
-     for (let i = 0; i < disparosEnemigos.length; i++) {
+
+    // Actualizar disparos de los enemigos
+    for (let i = 0; i < disparosEnemigos.length; i++) {
         disparosEnemigos[i].y += disparoEnemigoVelocidad;
         if (disparosEnemigos[i].y > canvas.height) {
             disparosEnemigos.splice(i, 1);
             i--;
         }
     }
-    // Actualizar enemigos y disparos de enemigos
+
+    // Actualizar enemigos
     for (let i = 0; i < enemigos.length; i++) {
         enemigos[i].y += enemigoVelocidad;
-        disparoEnemigo(enemigos[i]);
         if (enemigos[i].y > canvas.height) {
             enemigos.splice(i, 1);
             i--;
         }
     }
-    contadorDisparoEnemigo++; 
+
+    // Lógica para que los enemigos disparen
+    contadorDisparoEnemigo++;
+    if (contadorDisparoEnemigo >= LIMITE_DISPARO_ENEMIGO) {
+        for (let enemigo of enemigos) {
+            disparoEnemigo(enemigo);
+        }
+        contadorDisparoEnemigo = 0; // Reiniciar el contador
+    }
+
     // Lógica de colisión entre disparos de enemigos y el avión
-    for (let i = 0; i < disparos.length; i++) {
-        for (let j = 0; j < enemigos.length; j++) {
-            let disparo = disparos[i];
-            let enemigo = enemigos[j];
-            let distancia = Math.sqrt(Math.pow(disparo.x - enemigo.x, 2) + Math.pow(disparo.y - enemigo.y, 2));
-            if (distancia < disparoRadio + 15) {  // 15 es aproximadamente la mitad del tamaño del enemigo
-                enemigo.vida -= 50;  // Daño causado por el disparo del jugador
-                if (enemigo.vida <= 0) {
-                    enemigos.splice(j, 1);
-                    j--;
-                }
-                disparos.splice(i, 1);
-                i--;
-                break;
+    for (let i = 0; i < disparosEnemigos.length; i++) {
+        if (colisionaConAvion(disparosEnemigos[i])) {
+            vidaAvion -= disparosEnemigos[i].daño;
+            actualizarBarraVida(); // Actualizamos la barra de vida
+            disparosEnemigos.splice(i, 1);
+            i--;
+    
+            if (vidaAvion <= 0 && juegoActivo) {
+                juegoActivo = false;
+                clearInterval(intervaloActualizacion);
+                clearInterval(intervaloDibujo);
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpiar el canvas
+                mostrarBotonIniciar();
             }
         }
     }
-     // Lógica para que los enemigos disparen
-     for (let enemigo of enemigos) {
-        disparoEnemigo(enemigo);
+
+    // Lógica de colisión entre disparos del jugador y enemigos
+    for (let i = 0; i < disparos.length; i++) {
+    for (let j = 0; j < enemigos.length; j++) {
+        if (colisiona(disparos[i], enemigos[j])) {
+            enemigos[j].vida -= 10; // Asumiendo que cada disparo hace 10 de daño
+            if (enemigos[j].vida <= 0) {
+                enemigos.splice(j, 1);
+                puntaje += 10; // Asumiendo que matar a un enemigo da 10 puntos
+                actualizarPuntaje();
+                j--;
+            }
+            disparos.splice(i, 1);
+            i--;
+            break; // Salir del bucle interno si el disparo ya colisionó con un enemigo
+        }
     }
+}
 
     // Lógica de colisión entre el jugador y los power-ups
     for (let i = 0; i < powerUps.length; i++) {
-    let powerUp = powerUps[i];
-    let distancia = Math.sqrt(Math.pow(powerUp.x - avionX, 2) + Math.pow(powerUp.y - avionY, 2));
-    if (distancia < powerUpRadio + 15) {  // 15 es aproximadamente la mitad del tamaño del avión del jugador
-        switch (powerUp.color) {
-            case 'yellow':
-                efectoPowerUp = 'fuerte';
-                break;
-            case 'orange':
-                efectoPowerUp = 'cono';
-                break;
+        let powerUp = powerUps[i];
+        let distancia = Math.sqrt(Math.pow(powerUp.x - avionX, 2) + Math.pow(powerUp.y - avionY, 2));
+        if (distancia < powerUpRadio + 15) {  // 15 es aproximadamente la mitad del tamaño del avión del jugador
+            switch (powerUp.color) {
+                case 'yellow':
+                    efectoPowerUp = 'fuerte';
+                    vidaAvion += 20; // Aumenta la vida en 20
+                    if (vidaAvion > 100) vidaAvion = 100; // Asegura que la vida no exceda 100
+                    break;
+                case 'orange':
+                    efectoPowerUp = 'cono';
+                    vidaAvion += 10; // Aumenta la vida en 10
+                    if (vidaAvion > 100) vidaAvion = 100; // Asegura que la vida no exceda 100
+                    break;
+                case 'blue':
+                    efectoPowerUp = 'normal';
+                    vidaAvion += 5; // Aumenta la vida en 5
+                    if (vidaAvion > 100) vidaAvion = 100; // Asegura que la vida no exceda 100
+                    break;
+            }
+            actualizarBarraVida(); // Actualiza la barra de vida
+            powerUps.splice(i, 1);
+            i--;
         }
-        powerUps.splice(i, 1);
-        i--;
+    }
+    // Actualizar posición de los power-ups
+    for (let i = 0; i < powerUps.length; i++) {
+        powerUps[i].y += enemigoVelocidad; // Usamos la misma velocidad que los enemigos
+        if (powerUps[i].y > canvas.height) {
+            powerUps.splice(i, 1);
+            i--;
+        }
+    }
+
+}
+
+   
+function generarPowerUps() {
+    if (Math.random() < 0.005){ // Reducir la probabilidad a 0.5%
+        let tipo = ['yellow', 'orange'][Math.floor(Math.random() * 2)];
+        let powerUp = { x: Math.random() * canvas.width, y: 0, color: tipo, velocidad: 2 };
+        powerUps.push(powerUp);
     }
 }
-}
-   
-    
 
+function moverPowerUps() {
+    for (let i = 0; i < powerUps.length; i++) {
+        powerUps[i].y += powerUps[i].velocidad;
+        if (powerUps[i].y > canvas.height) {
+            powerUps.splice(i, 1);
+            i--;
+        }
+    }
+}
 
 function dibujar() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
 
     // Dibujar avión del jugador como triángulo
     ctx.beginPath();
@@ -265,8 +325,8 @@ function dibujar() {
     }
 
     // Dibujar power-ups como círculos
-    ctx.fillStyle = 'yellow';
     for (let powerUp of powerUps) {
+        ctx.fillStyle = powerUp.color;
         ctx.beginPath();
         ctx.arc(powerUp.x, powerUp.y, powerUpRadio, 0, Math.PI * 2);
         ctx.fill();
@@ -320,10 +380,12 @@ function reiniciarJuego() {
 }
 
 function iniciarJuego() {
-    setInterval(actualizar, 1000 / 60);
-    setInterval(dibujar, 1000 / 60);
-    setInterval(generarOleadaEnemigos, 10000);  // Genera oleada de enemigos cada 10 segundos
+    clearInterval(intervaloActualizacion);
+    clearInterval(intervaloDibujo);
+    intervaloActualizacion = setInterval(actualizar, 1000 / 60);
+    intervaloDibujo = setInterval(dibujar, 1000 / 60);
 }
+
 
 // Mostrar el botón al inicio
 mostrarBotonIniciar();
