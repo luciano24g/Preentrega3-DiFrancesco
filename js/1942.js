@@ -349,14 +349,34 @@ function mostrarBotonIniciar() {
     btn = document.createElement('button');
     btn.id = 'iniciarJuego';
     btn.innerHTML = juegoActivo ? 'Reiniciar Partida' : 'Iniciar Partida';
+
+    // Estilos para el botón
     btn.style.position = 'absolute';
     btn.style.top = '50%';
     btn.style.left = '50%';
     btn.style.transform = 'translate(-50%, -50%)';
+    btn.style.padding = '15px 30px';
+    btn.style.fontSize = '20px';
+    btn.style.border = 'none';
+    btn.style.borderRadius = '5px';
+    btn.style.backgroundColor = '#3498db';
+    btn.style.color = 'white';
+    btn.style.cursor = 'pointer';
+    btn.style.transition = 'background-color 0.3s';
+
+    // Efecto hover para el botón
+    btn.onmouseover = function() {
+        this.style.backgroundColor = '#2980b9';
+    }
+    btn.onmouseout = function() {
+        this.style.backgroundColor = '#3498db';
+    }
+
     btn.addEventListener('click', function() {
         document.body.removeChild(btn);
         reiniciarJuego();
     });
+
     document.body.appendChild(btn);
 }
 

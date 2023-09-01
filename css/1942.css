@@ -1,12 +1,20 @@
 body {
     display: flex;
+    flex-direction: column-reverse;
     justify-content: center;
     align-items: center;
     height: 100vh;
     background-color: #000;
     overflow: hidden;
+    background-image: url(../img/17305b9fa208001b4177a24febc1a941.jpg)
 }
 
 canvas {
     border: 1px solid #fff;
+    background-color: ;
+}
+
+#puntaje {
+    color:#fff;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
